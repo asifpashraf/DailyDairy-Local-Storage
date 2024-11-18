@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "DailyDairy",
-    "slug": "DailyDairy",
+    "slug": "dailydairy",
     "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/milkman.png",
@@ -27,7 +27,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "93530def-2fc0-4617-bf05-d5c7105c76e9"
+        "projectId": "d945e4f8-fbd9-4348-847b-94a5e051b2ac"
       }
     },
     "runtimeVersion": {
@@ -35,6 +35,7 @@
     },
     "updates": {
       "url": "https://u.expo.dev/93530def-2fc0-4617-bf05-d5c7105c76e9"
-    }
+    },
+    "owner": "asifpashraf"
   }
 }

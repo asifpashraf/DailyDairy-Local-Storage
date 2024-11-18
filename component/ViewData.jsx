@@ -59,8 +59,8 @@ const ViewData = () => {
         <View style={[styles.row, styles.headerRow]}>
           <Text style={[styles.cell, styles.headerCell]}>Phone</Text>
           <Text style={[styles.cell, styles.headerCell]}>Name</Text>
-          <Text style={[styles.cell, styles.headerCell]}>Quantity</Text>
-          <Text style={[styles.cell, styles.headerCell]}>Price/Ltr</Text>
+          {/* <Text style={[styles.cell, styles.headerCell]}>Quantity</Text> */}
+          {/* <Text style={[styles.cell, styles.headerCell]}>Price/Ltr</Text> */}
           <Text style={[styles.cell, styles.headerCell]}>Total</Text>
         </View>
 
@@ -68,8 +68,8 @@ const ViewData = () => {
           <View key={item.id} style={styles.row}>
             <Text style={styles.phonecell}>{item.phone}</Text>
             <Text style={styles.cell}>{item.name}</Text>
-            <Text style={styles.cell}>{item.quantity}</Text>
-            <Text style={styles.cell}>{item.pricePerLtr}</Text>
+            {/* <Text style={styles.cell}>{item.quantity}</Text> */}
+            {/* <Text style={styles.cell}>{item.pricePerLtr}</Text> */}
             <Text style={styles.cell}>{item.total}</Text>
           </View>
         ))}
