@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, FlatList, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -7,6 +7,7 @@ const ViewData = () => {
   const [customerData, setCustomerData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [phoneFilter, setPhoneFilter] = useState('');
+  const [totalAmount, setTotalAmount] = useState(0);  // Add state for total amount
 
   // Load data from AsyncStorage when the component mounts
   useEffect(() => {
@@ -38,11 +39,15 @@ const ViewData = () => {
     }
   };
 
+  // Calculate total amount whenever filteredData changes
+  useEffect(() => {
+    const total = filteredData.reduce((acc, item) => acc + item.total, 0);
+    setTotalAmount(total);
+  }, [filteredData]);
+
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        <Text style={styles.header}>Stored Customer Data</Text>
-
+      <View style={styles.table}>
         <TextInput
           style={styles.input}
           placeholder="Filter by phone number"
@@ -51,25 +56,27 @@ const ViewData = () => {
           value={phoneFilter}
           onChangeText={(text) => handleFilter(text)}
         />
+        <View style={[styles.row, styles.headerRow]}>
+          <Text style={[styles.cell, styles.headerCell]}>Phone</Text>
+          <Text style={[styles.cell, styles.headerCell]}>Name</Text>
+          <Text style={[styles.cell, styles.headerCell]}>Quantity</Text>
+          <Text style={[styles.cell, styles.headerCell]}>Price/Ltr</Text>
+          <Text style={[styles.cell, styles.headerCell]}>Total</Text>
+        </View>
 
-        {filteredData.length > 0 ? (
-          <FlatList
-            data={filteredData}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <View style={styles.card}>
-                <Text style={styles.cardText}>Name: {item.name}</Text>
-                <Text style={styles.cardText}>Phone: {item.phone}</Text>
-                <Text style={styles.cardText}>Price/Ltr: ₹{item.pricePerLtr}</Text>
-                <Text style={styles.cardText}>Quantity: {item.quantity}</Text>
-                <Text style={styles.cardText}>Total: ₹{item.total.toFixed(2)}</Text>
-                <Text style={styles.cardText}>Date: {item.date}</Text>
-              </View>
-            )}
-          />
-        ) : (
-          <Text style={styles.noDataText}>No data found for the given phone number.</Text>
-        )}
+        {filteredData.map((item) => (
+          <View key={item.id} style={styles.row}>
+            <Text style={styles.phonecell}>{item.phone}</Text>
+            <Text style={styles.cell}>{item.name}</Text>
+            <Text style={styles.cell}>{item.quantity}</Text>
+            <Text style={styles.cell}>{item.pricePerLtr}</Text>
+            <Text style={styles.cell}>{item.total}</Text>
+          </View>
+        ))}
+      </View>
+
+      <View style={styles.totalContainer}>
+        <Text style={styles.totalText}>Total Amount: ₹{totalAmount.toFixed(2)}</Text>
       </View>
     </SafeAreaView>
   );
@@ -82,49 +89,39 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F5F5F5',
   },
-  container: {
-    flex: 1,
-    paddingHorizontal: 16,
-    paddingVertical: 20,
+  table: {
+    margin: 5,
+    borderWidth: 1,
+    borderColor: '#ccc',
   },
-  header: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 10,
+  row: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  headerRow: {
+    backgroundColor: '#f4f4f4',
+  },
+  cell: {
+    flex: 1,
+    padding: 5,
     textAlign: 'center',
   },
-  input: {
+  headerCell: {
+    fontWeight: 'bold',
+  },
+  totalContainer: {
+    marginTop: 20,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
     backgroundColor: '#F9F9F9',
     borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#DDD',
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    fontSize: 14,
-    color: '#333',
-    marginBottom: 15,
-  },
-  card: {
-    backgroundColor: 'white',
-    borderRadius: 8,
-    padding: 15,
     marginBottom: 10,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    elevation: 2,
   },
-  cardText: {
-    fontSize: 14,
+  totalText: {
+    fontSize: 16,
+    fontWeight: 'bold',
     color: '#333',
-    marginBottom: 5,
-  },
-  noDataText: {
-    fontSize: 14,
-    color: '#999',
     textAlign: 'center',
-    marginTop: 20,
   },
 });

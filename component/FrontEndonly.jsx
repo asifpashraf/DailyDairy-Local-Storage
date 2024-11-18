@@ -4,7 +4,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
-
 const FrontEndonly = () => {
     const currentDate = new Date();
     const formattedDate = currentDate.toDateString();
@@ -71,8 +70,6 @@ const FrontEndonly = () => {
     } catch (error) {
       console.error('Failed to save data:', error);
     }
-
-
   };
 
   return (
@@ -118,14 +115,14 @@ const FrontEndonly = () => {
             onChangeText={(text) => setQuantity(text)}
           />
 
-          <Button title="Calculate Total" color="#4CAF50" onPress={handleCalculateTotal} />
+          <Button title="Calculate Total" color="#FF6F61" onPress={handleCalculateTotal} style={styles.button} />
 
           <View style={styles.totalContainer}>
             <Text style={styles.totalText}>Total: ₹{total.toFixed(2)}</Text>
           </View>
 
-          <Button title="Add Data" color="#2196F3" onPress={handleAddData} />
-          <Button title="View Data" onPress={() => navigation.navigate('View Data')} />;
+           <Button title="Add Data" color="#6A5ACD" onPress={handleAddData} style={styles.button} />
+            <Button title="View Data" color="#4CAF50" onPress={() => navigation.navigate('View Data')} style={styles.button} />
         </View>
       </View>
     </SafeAreaView>
@@ -195,5 +192,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#4CAF50',
+  },
+  button: {
+    padding:10 
   },
 });
