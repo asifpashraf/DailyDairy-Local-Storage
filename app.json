@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "DailyDairy",
+    "slug": "DailyDairy",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/milkman.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/milkman.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/milkman.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.asifpashraf.DailyDairy"
+    },
+    "web": {
+      "favicon": "./assets/milkman.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "93530def-2fc0-4617-bf05-d5c7105c76e9"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/93530def-2fc0-4617-bf05-d5c7105c76e9"
+    }
+  }
+}
